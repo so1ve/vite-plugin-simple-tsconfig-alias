@@ -52,17 +52,6 @@ function readTsconfig(filePath: string): ts.ParsedCommandLine | null {
   return parsed;
 }
 
-function toArray(value: unknown): string[] {
-  if (Array.isArray(value)) {
-    return value.filter((v): v is string => typeof v === "string");
-  }
-  if (typeof value === "string") {
-    return [value];
-  }
-
-  return [];
-}
-
 export function parseTsconfigAliases(
   projectRoot: string,
   configNames: string[],
@@ -79,9 +68,7 @@ export function parseTsconfigAliases(
     const baseUrl = parsed.options.baseUrl ?? path.dirname(configPath);
     const paths = parsed.options.paths ?? {};
 
-    for (const [from, to] of Object.entries(paths)) {
-      const targets = toArray(to);
-      const firstTarget = targets[0];
+    for (const [from, [firstTarget]] of Object.entries(paths)) {
       if (!firstTarget) {
         continue;
       }
