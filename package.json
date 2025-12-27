@@ -1,0 +1,72 @@
+{
+  "name": "vite-plugin-simple-tsconfig-alias",
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.26.2",
+  "author": "Ray <i@mk1.io> (@so1ve)",
+  "type": "module",
+  "description": "A simple Vite plugin to resolve tsconfig paths as aliases.",
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "tsconfig",
+    "alias",
+    "path-mapping"
+  ],
+  "homepage": "https://github.com/so1ve/vite-plugin-simple-tsconfig-alias#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/so1ve/vite-plugin-simple-tsconfig-alias.git"
+  },
+  "bugs": {
+    "url": "https://github.com/so1ve/vite-plugin-simple-tsconfig-alias/issues"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "lint": "eslint . && prettier . --check",
+    "lint:fix": "eslint . --fix && prettier . --write",
+    "release": "bumpp --commit --push --tag",
+    "test": "vitest",
+    "typecheck": "nr typecheck:isolated && nr typecheck:non-isolated",
+    "typecheck:isolated": "tsc --noEmit --project tsconfig.isolated.json",
+    "typecheck:non-isolated": "tsgo --noEmit --project tsconfig.non-isolated.json",
+    "watch": "tsdown --watch"
+  },
+  "devDependencies": {
+    "@antfu/ni": "^28.0.0",
+    "@so1ve/eslint-config": "^4.1.2",
+    "@so1ve/prettier-config": "^4.1.2",
+    "@types/node": "^25.0.3",
+    "@typescript/native-preview": "7.0.0-dev.20251029.1",
+    "bumpp": "^10.3.2",
+    "eslint": "^9.39.2",
+    "prettier": "^3.7.4",
+    "tsdown": "^0.18.3",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0",
+    "vitest": "^4.0.16"
+  },
+  "peerDependencies": {
+    "typescript": "^5",
+    "vite": "^4 || ^5 || ^6 || ^7"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
+  }
+}
