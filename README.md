@@ -19,9 +19,9 @@ A simple Vite plugin to resolve tsconfig paths as aliases.
 ## 📦 Installation
 
 ```bash
-$ npm install vite-plugin-simple-tsconfig-alias
-$ yarn add vite-plugin-simple-tsconfig-alias
-$ pnpm add vite-plugin-simple-tsconfig-alias
+$ npm install -D vite-plugin-simple-tsconfig-alias
+$ yarn add -D vite-plugin-simple-tsconfig-alias
+$ pnpm add -D vite-plugin-simple-tsconfig-alias
 ```
 
 ## 🚀 Usage
