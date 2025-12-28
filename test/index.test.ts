@@ -54,6 +54,34 @@ describe("parseTsconfigAliases", () => {
   });
 });
 
+describe("jsconfig support", () => {
+  it("should parse jsconfig.json mappings", () => {
+    const aliases = parseTsconfigAliases(fixturesDir, ["jsconfig.json"]);
+
+    expect(aliases).toHaveLength(2);
+
+    const jsWildcard = aliases.find(
+      (a) => a.find instanceof RegExp && a.find.source.includes("@js"),
+    );
+
+    expect(jsWildcard?.replacement).toContain(path.join("src", "js", "$1"));
+
+    const jsExact = aliases.find((a) => a.find === "js");
+
+    expect(jsExact?.replacement).toContain(path.join("src", "js", "index.js"));
+  });
+
+  it("should merge jsconfig and tsconfig", () => {
+    const aliases = parseTsconfigAliases(fixturesDir, [
+      "tsconfig.json",
+      "jsconfig.json",
+    ]);
+
+    expect(aliases.length).toBeGreaterThan(3);
+    expect(aliases.some((a) => a.replacement.includes("js"))).toBeTruthy();
+  });
+});
+
 describe("mergeAliases", () => {
   it("should merge with existing array aliases", () => {
     const existing = [{ find: "old", replacement: "path" }];

@@ -1,7 +1,6 @@
-import fs from "node:fs";
 import path from "node:path";
 
-import ts from "typescript";
+import { getTsconfig } from "get-tsconfig";
 import type { Plugin } from "vite";
 
 import type { Alias, AliasOptions } from "./types";
@@ -31,27 +30,6 @@ function buildReplacement(target: string, starCount: number): string {
   return replacement;
 }
 
-function readTsconfig(filePath: string): ts.ParsedCommandLine | null {
-  if (!fs.existsSync(filePath)) {
-    return null;
-  }
-
-  const read = ts.readConfigFile(filePath, ts.sys.readFile);
-  if (read.error) {
-    return null;
-  }
-
-  const parsed = ts.parseJsonConfigFileContent(
-    read.config,
-    ts.sys,
-    path.dirname(filePath),
-    undefined,
-    filePath,
-  );
-
-  return parsed;
-}
-
 export function parseTsconfigAliases(
   projectRoot: string,
   configNames: string[],
@@ -59,14 +37,15 @@ export function parseTsconfigAliases(
   const aliases: Alias[] = [];
 
   for (const configName of configNames) {
-    const configPath = path.resolve(projectRoot, configName);
-    const parsed = readTsconfig(configPath);
-    if (!parsed) {
+    const tsconfig = getTsconfig(projectRoot, configName);
+    if (!tsconfig) {
       continue;
     }
 
-    const baseUrl = parsed.options.baseUrl ?? path.dirname(configPath);
-    const paths = parsed.options.paths ?? {};
+    const { compilerOptions } = tsconfig.config;
+
+    const baseUrl = compilerOptions?.baseUrl ?? projectRoot;
+    const paths = compilerOptions?.paths ?? {};
 
     for (const [from, [firstTarget]] of Object.entries(paths)) {
       if (!firstTarget) {

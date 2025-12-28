@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@js/*": ["./src/js/*"],
+      "js": ["./src/js/index.js"]
+    }
+  }
+}
