@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-simple-tsconfig-alias",
   "version": "0.2.0",
-  "packageManager": "pnpm@10.26.2",
+  "packageManager": "pnpm@10.27.0",
   "author": "Ray <i@mk1.io> (@so1ve)",
   "type": "module",
   "description": "A simple Vite plugin to resolve tsconfig paths as aliases.",
@@ -54,7 +54,7 @@
     "@so1ve/eslint-config": "^4.1.2",
     "@so1ve/prettier-config": "^4.1.2",
     "@types/node": "^25.0.3",
-    "@typescript/native-preview": "7.0.0-dev.20251029.1",
+    "@typescript/native-preview": "7.0.0-dev.20260102.1",
     "bumpp": "^10.3.2",
     "eslint": "^9.39.2",
     "prettier": "^3.7.4",
